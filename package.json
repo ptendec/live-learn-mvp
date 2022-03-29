@@ -1,0 +1,16 @@
+{
+  "name": "live-learn-mvp",
+  "version": "0.0.0",
+  "author": "amazzat",
+  "private": true,
+  "scripts": {
+    "dev": "turbo run dev"
+  },
+  "workspaces": [
+    "apps/*"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "turbo": "^1.1.10"
+  }
+}
