@@ -1,0 +1,23 @@
+{
+  "name": "@live-learn-mvp/back",
+  "version": "0.0.1",
+  "author": "amazzat",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start:dev": "vercel dev --listen 4000"
+  },
+  "dependencies": {
+    "@prisma/client": "^3.11.1",
+    "@trpc/next": "^9.20.3",
+    "@trpc/server": "^9.20.3",
+    "typescript": "^4.6.3",
+    "zod": "^3.14.3"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.23",
+    "@vercel/node": "^1.14.0",
+    "prisma": "^3.11.1",
+    "vercel": "^24.0.1"
+  }
+}

@@ -1,0 +1,49 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// model User {
+//   id      Int       @id @default(autoincrement())
+//   name    String
+//   // threads Thread[]
+//   videos  Video[]
+//   Comment Comment[]
+// }
+
+// model Thread {
+//   id       Int       @id @default(autoincrement())
+//   comments Comment[]
+//   videoId  Int
+//   userId   Int
+//   video    Video     @relation(fields: [videoId], references: [id])
+//   user     User      @relation(fields: [userId], references: [id])
+// }
+
+// model Video {
+//   id       String    @id
+//   url      String
+//   user     User      @relation(fields: [userId], references: [id])
+//   // Thread Thread[]
+//   userId   Int
+//   comments Comment[]
+// }
+
+model Comment {
+  id       Int    @id @default(autoincrement())
+  body     String
+  // thread   Thread @relation(fields: [threadId], references: [id])
+  // threadId Int
+  userId   String
+  videoId  String
+  timecode Int
+  // user    User   @relation(fields: [userId], references: [id])
+  // Video   Video  @relation(fields: [videoId], references: [id])
+}

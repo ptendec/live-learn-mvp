@@ -1,10 +1,10 @@
 {
   "name": "live-learn-mvp",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": "amazzat",
   "private": true,
   "scripts": {
-    "dev": "turbo run dev"
+    "start:dev": "turbo run start:dev"
   },
   "workspaces": [
     "apps/*"
