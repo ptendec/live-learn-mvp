@@ -1,167 +1,7 @@
-import clsx from "clsx";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Video } from "../components/video";
-import { setUserName } from "../features/user/userSlice";
-import { setVideoId } from "../features/video/videoSlice";
+import { useSelector } from "react-redux";
+import { ChangeSettings, CommentList, Input, Video } from "../components/";
 import { RootState } from "../store";
 import { trpc } from "../utils/trpc";
-
-type CommentProps = {
-  url?: string;
-  author: string;
-  text: string;
-  timecode?: number;
-};
-
-const Comment = ({ url, author, text }: CommentProps) => {
-  return (
-    <a href={url}>
-      <div className="card card-compact bg-base-200 card-bordered">
-        <div className="card-body">
-          <h4 className="text-sm card-title">{author}</h4>
-          <p className="line-clamp-2">{text}</p>
-        </div>
-      </div>
-    </a>
-  );
-};
-
-type InputProps = {
-  onSend: (input: string) => void;
-};
-
-const Input = ({ onSend }: InputProps) => {
-  const [text, setText] = useState("");
-
-  return (
-    <label className="z-10 h-12 input-group">
-      <textarea
-        value={text}
-        onChange={(event) => setText(event.target.value)}
-        className="w-full rounded-none resize-none textarea textarea-bordered"
-        placeholder="Send a comment"
-      />
-      <button className="btn" onClick={() => (onSend(text), setText(""))}>
-        Send
-      </button>
-    </label>
-  );
-};
-
-type ModalProps = {
-  open: boolean;
-  promptText: string;
-  onSubmit: (input: string) => void;
-};
-
-const Modal = ({ open, promptText, onSubmit }: ModalProps) => {
-  const [input, setInput] = useState("");
-
-  return (
-    <div className={clsx("modal ", open && "modal-open")}>
-      <div className="modal-box">
-        <h3 className="text-lg font-bold">{promptText}</h3>
-        <div className="mt-2">
-          <input
-            value={input}
-            onChange={(event) => setInput(event.target.value)}
-            type="text"
-            placeholder="Type here"
-            className="w-full input input-bordered"
-          />
-        </div>
-        <div className="modal-action">
-          <button className="btn" onClick={() => onSubmit(input)}>
-            Submit
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const ChangeSettings = () => {
-  const [videoModalOpen, setVideoModalOpen] = useState(false);
-  const [nameModalOpen, setNameModalOpen] = useState(false);
-  const dispatch = useDispatch();
-
-  const onSubmitVideo = (input: string) => {
-    if (input.length > 0) {
-      dispatch(setVideoId(input));
-    }
-    setVideoModalOpen(false);
-  };
-
-  const onSubmitName = (input: string) => {
-    if (input.length > 0) {
-      dispatch(setUserName(input));
-    }
-    setNameModalOpen(false);
-  };
-
-  const changeName = () => {
-    setNameModalOpen(true);
-  };
-
-  const changeVideo = () => {
-    setVideoModalOpen(true);
-  };
-  return (
-    <>
-      <Modal
-        open={videoModalOpen}
-        promptText="Enter youtube video id"
-        onSubmit={onSubmitVideo}
-      />
-      <Modal
-        open={nameModalOpen}
-        promptText="Enter new username"
-        onSubmit={onSubmitName}
-      />
-      <div className="flex btn-group">
-        <button
-          className="flex-1 btn hover:btn-active"
-          onClick={() => changeVideo()}
-        >
-          Change video
-        </button>
-        <button
-          className="flex-1 btn hover:btn-active"
-          onClick={() => changeName()}
-        >
-          Change name
-        </button>
-      </div>
-    </>
-  );
-};
-
-type CommentListProps = {
-  comments: { body: string; id: number; timecode: number; userId: string }[];
-};
-
-const CommentList = ({ comments }: CommentListProps) => {
-  const timecode = useSelector((state: RootState) => state.video.currentTime);
-
-  return (
-    <ul className="space-y-4">
-      {comments.map((comment) => {
-        return (
-          timecode > comment.timecode && (
-            <li key={comment.id}>
-              <Comment
-                author={comment.userId}
-                text={comment.body}
-                timecode={comment.timecode}
-              />
-            </li>
-          )
-        );
-      })}
-    </ul>
-  );
-};
 
 export const Index = () => {
   const utils = trpc.useContext();
@@ -198,11 +38,36 @@ export const Index = () => {
             {commentQuery.data ? (
               <CommentList comments={commentQuery.data} />
             ) : (
-              "Loading"
+              <div className="flex items-center justify-center h-full">
+                <svg
+                  className="w-5 h-5 mr-3 -ml-1 text-primary animate-spin"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
+                </svg>
+              </div>
             )}
           </div>
           <div className="p-2 space-y-2">
-            <Input onSend={sendText} />
+            <Input
+              onSend={sendText}
+              isLoading={commentMutation.isLoading}
+              disabled={commentMutation.isLoading}
+            />
             <ChangeSettings />
           </div>
         </div>

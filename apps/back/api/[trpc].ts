@@ -4,7 +4,7 @@ import { z } from "zod";
 import { prisma } from "../utils/prisma";
 
 const commentRouter = trpc
-  .router()
+  .router<Context>()
   .query("getAllByVideoId", {
     input: z.string(),
     async resolve({ input }) {
@@ -17,6 +17,9 @@ const commentRouter = trpc
           id: true,
           timecode: true,
           userId: true,
+        },
+        orderBy: {
+          timecode: "asc",
         },
       });
     },
@@ -37,16 +40,19 @@ const commentRouter = trpc
     },
   });
 
-const userRouter = trpc.router();
+const createContext = async (opts?: trpcNext.CreateNextContextOptions) => {
+  await new Promise((resolve) => setTimeout(resolve, 3000));
 
-const appRouter = trpc
-  .router()
-  .merge("user.", userRouter)
-  .merge("comments.", commentRouter);
+  return {};
+};
+
+type Context = trpc.inferAsyncReturnType<typeof createContext>;
+
+const appRouter = trpc.router<Context>().merge("comments.", commentRouter);
 
 export type AppRouter = typeof appRouter;
 
 export default trpcNext.createNextApiHandler({
   router: appRouter,
-  createContext: () => null,
+  createContext,
 });
