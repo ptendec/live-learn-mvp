@@ -9,7 +9,7 @@ function App() {
   const [queryClient] = useState(() => new QueryClient());
   const [trpcClient] = useState(() =>
     trpc.createClient({
-      url: "http://localhost:3000/api",
+      url: import.meta.env.VITE_TRPC_URL as string,
     })
   );
   return (

@@ -2206,7 +2206,7 @@ util-deprecate@^1.0.2:
 
 vercel@^24.0.1:
   version "24.0.1"
-  resolved "https://registry.npmjs.org/vercel/-/vercel-24.0.1.tgz"
+  resolved "https://registry.yarnpkg.com/vercel/-/vercel-24.0.1.tgz#30feae9e9d80c679f4d2c77a43b0d297405e5bfb"
   integrity sha512-LmWW65KyWJV/GTxlcVwcifGp1yywUSNP3fcMNZQLdd6fVC3CHJUyHz5t4GD8O1VM56NqvnnYgqNbGYBQXLN5gQ==
   dependencies:
     "@vercel/build-utils" "2.15.0"
