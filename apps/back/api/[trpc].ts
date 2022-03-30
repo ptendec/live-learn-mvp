@@ -40,8 +40,8 @@ const commentRouter = trpc
     },
   });
 
-const createContext = async (opts?: trpcNext.CreateNextContextOptions) => {
-  await new Promise((resolve) => setTimeout(resolve, 3000));
+const createContext = async () => {
+  // await new Promise((resolve) => setTimeout(resolve, 3000));
 
   return {};
 };
