@@ -4,6 +4,7 @@
   "author": "amazzat",
   "license": "MIT",
   "private": true,
+  "types": "./types.ts",
   "scripts": {
     "start:dev": "vercel dev --listen 4000"
   },

@@ -350,7 +350,7 @@
 
 "@trpc/next@^9.20.3":
   version "9.20.3"
-  resolved "https://registry.npmjs.org/@trpc/next/-/next-9.20.3.tgz"
+  resolved "https://registry.yarnpkg.com/@trpc/next/-/next-9.20.3.tgz#e86d10c41f0115ef6629f33426c45947a04eda30"
   integrity sha512-fJdjjrTwouNHBPnSPd+ucg0OGPedIqrBynWRlHRPuPyoNzJsGEoUZE58sCfLFaZ0Y3Yeppuo73kvP4VMZA7aaQ==
   dependencies:
     "@babel/runtime" "^7.9.0"
@@ -2281,5 +2281,5 @@ youtube-player@5.5.2:
 
 zod@^3.14.3:
   version "3.14.3"
-  resolved "https://registry.npmjs.org/zod/-/zod-3.14.3.tgz"
+  resolved "https://registry.yarnpkg.com/zod/-/zod-3.14.3.tgz#60e86341c05883c281fe96a0e79acea48a09f123"
   integrity sha512-OzwRCSXB1+/8F6w6HkYHdbuWysYWnAF4fkRgKDcSFc54CE+Sv0rHXKfeNUReGCrHukm1LNpi6AYeXotznhYJbQ==
